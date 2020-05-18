@@ -2,7 +2,7 @@
 
 Currently working on making a more intuitive CLI but see below for how to get a plot of monte carlo simulation
 
-## How to Run
+## How to Run
 
 Scroll to the bottom of the Efficient_Frontier.py file
 and imput the stock tickers and the dates for which you
