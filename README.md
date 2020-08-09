@@ -34,6 +34,7 @@ mc = monte_carlo(stocks,10000)
 opt_weights = get_optimal_weights(mc)
 print(opt_weights)
 # OS: Optimal (opt) Sharpe Ratio, MV: Max vol of opt Sharpe Ratio, MR: Max return of opt sharpe ratio
+
 plot_monte_carlo(mc,opt_weights)
 
 ```
@@ -49,5 +50,7 @@ plot_monte_carlo(mc,opt_weights)
 #
 
 #### plot_monte_carlo(mc,opt_weights)
+
+Red dot represents the portfolio with the highest sharpe ratio.
 
 ![monte](./images/monte_carlo.png)
