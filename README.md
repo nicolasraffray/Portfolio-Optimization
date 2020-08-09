@@ -1,4 +1,4 @@
-# CAPM
+# Portfolio Optimization
 
 Currently working on making a more intuitive CLI but see below for how to get a plot of monte carlo simulation
 
@@ -20,10 +20,17 @@ stocks
 log_ret
 ```
 
+#
+
 Methods:
+
 average_daily_return(stocks): Returns Average Daily returns
+
 correlation_matrix(stocks): Returns a correlation matrix of stocks
+
 log_returns(stocks): Returns Log Returns of selected stocks
+
+#
 
 Run a monte carlo simulation for optimal weights:
 
