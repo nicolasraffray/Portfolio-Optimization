@@ -42,10 +42,6 @@ def log_returns(stocks):
   log_ret = np.log(stocks/stocks.shift(1))
   return log_ret
 
-
-# for stock_df in (aapl,cisco,ibm,amzn):
-#    stock_df['Normed Return'] = stock_df['Adj. Close'] / stock_df.iloc[0]['Adj. Close']
-
 def normal_returns(stocks):
     normal_returns = pd.DataFrame()
     for stock in stocks:
@@ -152,15 +148,22 @@ def neg_sharpe(ret_vol_sr):
 def check_sum(weights):
   return np.sum(weights) -1
 
-# def generate_portfolio_timeseries(log_ret, allocation):
-#   ''' returns dataframe of returns adjusted for allocation '''
-#   if len(allocation) != log_ret.shape[-1]:
-#       print("Allocation does not match number of stocks")
-#       return 
-#   pf_returns = log_ret * allocation
-#   pf_returns['Total Return'] = pf_returns.sum(axis=1)
-#   return pf_returns
+def generate_portfolio_timeseries(normal_ret, allocation):
+  ''' returns dataframe of returns adjusted for allocation '''
+  if len(allocation) != normal_ret.shape[-1]:
+      print("Allocation does not match number of stocks")
+      return
+  pf_returns = normal_ret * allocation
+  pf_returns['Total Return'] = pf_returns.sum(axis=1)
+  return pf_returns
 
+def plot_portfolio(pf_returns):
+  pf_returns['Total Return'].plot(figsize=(10,8))
+  plt.show()
+
+def plot_portfolio_breakdown(pf_returns):
+  pf_returns.drop('Total Return',axis = 1).plot(figsize=(10,8))
+  plt.show()
 
 # cons = ({'type':'eq', 'fun':check_sum})
 
@@ -227,4 +230,4 @@ def check_sum(weights):
 
 stocks = load_data("04-01-2015","04-02-2020", "FB", "AAPL", "AMZN","NFLX","GOOG")
 log_ret = log_returns(stocks)
-generate_portfolio_timeseries(log_ret,[0.2,0.1,0.3,0.1,0.3])
+normal_ret = normal_returns(stocks)
