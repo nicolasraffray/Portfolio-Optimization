@@ -112,7 +112,7 @@ def get_optimal_weights(monte_values):
   max_sr_vol = vol[optimal_sharpe]
 
   optimal_SR_values = {"OS": optimal_sharpe, "MV": max_sr_vol, "MR": max_sr_ret}
-  return optimal_SR_values
+  return optimal_SR_values, monte_values['AllWeights'][optimal_sharpe]
 
 def plot_monte_carlo(monte_values, optimal_SR_values):
   returns = monte_values["Ra"]
