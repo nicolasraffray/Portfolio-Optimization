@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pandas_datareader as web
 import matplotlib.pyplot as plt
+from pandas.util.testing import assert_frame_equal
 from scipy.optimize import minimize 
 # %matplotlib inline
 
@@ -228,6 +229,11 @@ def plot_portfolio_breakdown(pf_returns):
 # # spy_etf['close'].plot(label = 'SPY')
 # plt.show()
 
-stocks = load_data("04-01-2015","04-02-2020", "FB", "AAPL", "AMZN","NFLX","GOOG")
+start = "04-01-2015"
+end = "04-02-2020"
+stocks = load_data(start,end, "FB", "AAPL", "AMZN","NFLX","GOOG")
 log_ret = log_returns(stocks)
 normal_ret = normal_returns(stocks)
+spy_etf = web.DataReader('SPY', 'yahoo',start=start,end=end)
+spy_etf_returns = normal_returns(spy_etf)
+print(spy_etf_returns)
