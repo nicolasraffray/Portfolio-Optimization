@@ -53,6 +53,8 @@ plot_portfolio(pf)
 
 plot_portfolio_breakdown(pf)
 
+plot_against_benchmark(pf, spy_etf_returns)
+
 ```
 
 ### Visualize:
@@ -88,3 +90,9 @@ Displays the returns of individual stocks with their allocated weight. example:
 ![pf_breakdown](./images/individual_returns.png)
 
 #
+
+#### plot_against_benchmark(pf_returns, benchmark)
+
+Plots the portfolio returns against benchmark
+
+![pf_against_benchmark](./images/pf_against_benchmark.png)

@@ -247,4 +247,3 @@ spy_etf = web.DataReader('SPY', 'yahoo',start=start,end=end)
 spy_etf_returns = normal_returns(spy_etf)['Adj Close']
 pf_ret = generate_portfolio_timeseries(normal_ret, [0.2,0.2,0.2,0.2,0.2])
 print(spy_etf_returns)
-plot_against_benchmark(pf_ret, spy_etf_returns)
