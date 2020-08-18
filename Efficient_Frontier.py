@@ -166,6 +166,15 @@ def plot_portfolio_breakdown(pf_returns):
   pf_returns.drop('Total Return',axis = 1).plot(figsize=(10,8))
   plt.show()
 
+def plot_against_benchmark(pf_returns, benchmark):
+  print(pf_returns)
+  pf = pd.DataFrame()
+  pf['Benchmark'] = benchmark
+  pf['Portfolio'] = pf_returns['Total Return']
+  
+  pf.plot(figsize=(10,8))
+  plt.show()
+
 # cons = ({'type':'eq', 'fun':check_sum})
 
 # # 0-1 bounds for each weight 
@@ -235,5 +244,7 @@ stocks = load_data(start,end, "FB", "AAPL", "AMZN","NFLX","GOOG")
 log_ret = log_returns(stocks)
 normal_ret = normal_returns(stocks)
 spy_etf = web.DataReader('SPY', 'yahoo',start=start,end=end)
-spy_etf_returns = normal_returns(spy_etf)
+spy_etf_returns = normal_returns(spy_etf)['Adj Close']
+pf_ret = generate_portfolio_timeseries(normal_ret, [0.2,0.2,0.2,0.2,0.2])
 print(spy_etf_returns)
+plot_against_benchmark(pf_ret, spy_etf_returns)
