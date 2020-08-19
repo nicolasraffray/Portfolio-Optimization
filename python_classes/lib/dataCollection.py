@@ -16,9 +16,6 @@ class DataCollection():
             if self.dataFrame.empty:
                 self.dataFrame[ticker] = stock['Adj Close']
             else:
-                print(self.dataFrame.head(5))
-                print(stock.head(5))
-
                 self.dataFrame = pd.concat(
                     [self.dataFrame, stock['Adj Close']], axis=1)
                 self.dataFrame.columns.values[-1] = ticker
