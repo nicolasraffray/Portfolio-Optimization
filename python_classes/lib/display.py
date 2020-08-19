@@ -2,7 +2,6 @@ class Display:
 
     def __init__(self):
         self.tickers = None
-        pass
 
     def ask_for_tickers(self):
         tickers = []
