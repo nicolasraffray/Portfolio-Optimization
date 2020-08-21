@@ -9,7 +9,7 @@ class MetaData(DataCollection):
     def __init__(self):
         super().__init__()
         self.normal_returns = pd.DataFrame()
-        self.daily_log_returns = pd.DataFrame
+        self.daily_log_returns = None
 
     def get_normal_returns(self):
         for stock in self.dataFrame:

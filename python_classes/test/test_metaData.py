@@ -17,7 +17,7 @@ class Test(TestCase):
 
   def test_generates_log_returns(self):
     self.meta.get_log_returns()
-    self.assertEqual(round(self.meta.log_returns.iloc[1][0],5),0.00442)
+    self.assertEqual(round(self.meta.daily_log_returns.iloc[1][0],5),0.00442)
 
       
 if __name__ == "__main__":
