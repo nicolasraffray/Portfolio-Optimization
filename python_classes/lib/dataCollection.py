@@ -7,7 +7,6 @@ class DataCollection():
 
     def __init__(self):
         self.dataFrame = pd.DataFrame()
-        pass
 
     def get(self, ticker, start, end):
         try:
