@@ -19,3 +19,6 @@ class Test(TestCase):
             'FB', '20-10-2015', '20-10-2019', 'yahoo')
         self.assertEqual(data.dataFrame.columns.values[0], 'FB')
         self.assertEqual(data.dataFrame.iloc[0][0], 450.00)
+
+if __name__ == '__main__':
+    unittest.main()

@@ -7,11 +7,18 @@ from lib.dataCollection import DataCollection
 
 
 class Test(TestCase):
+  meta = MetaData()
+  meta.dataFrame = pd.DataFrame(
+        [452.00, 454.00, 456.00], columns=['FB'])
 
-    def test_generates_normal_Returns(self):
-        meta = MetaData()
-        meta.dataFrame = pd.DataFrame(
-            [452.00, 454.00, 456.00], columns=['FB'])
-        meta.generate_normal_returns()
-        print(meta.normal_returns)
-        self.assertEqual(round(meta.normal_returns.iloc[1][0],5), 1.00442)
+  def test_generates_normal_Returns(self):
+      self.meta.get_normal_returns()
+      self.assertEqual(round(self.meta.normal_returns.iloc[1][0],5), 1.00442)
+
+  def test_generates_log_returns(self):
+    self.meta.get_log_returns()
+    self.assertEqual(round(self.meta.log_returns.iloc[1][0],5),0.00442)
+
+      
+if __name__ == "__main__":
+  unittest.main()
