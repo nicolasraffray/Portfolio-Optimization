@@ -19,6 +19,8 @@ class Test(TestCase):
     self.meta.get_log_returns()
     self.assertEqual(round(self.meta.daily_log_returns.iloc[1][0],5),0.00442)
 
+
+
       
 if __name__ == "__main__":
   unittest.main()

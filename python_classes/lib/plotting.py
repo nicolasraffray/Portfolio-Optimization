@@ -1,11 +1,13 @@
 from .metaData import MetaData
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class Plotting(MetaData):
 
-    def __init__(self):
+    def __init__(self, MetaDataClass=pd.DataFrame()):
         super().__init__()
+        self.dataFrame = MetaDataClass.dataFrame
 
     def prices(self):
         self.dataFrame.plot(figsize=(12, 8))
