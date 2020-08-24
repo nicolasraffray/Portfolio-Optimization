@@ -5,9 +5,10 @@ import pandas as pd
 
 class Plotting(MetaData):
 
-    def __init__(self, MetaDataClass=pd.DataFrame()):
+    def __init__(self, MetaDataClass=None):
         super().__init__()
-        self.dataFrame = MetaDataClass.dataFrame
+        if MetaDataClass != None:
+            self.dataFrame = MetaDataClass.dataFrame
 
     def prices(self):
         self.dataFrame.plot(figsize=(12, 8))
