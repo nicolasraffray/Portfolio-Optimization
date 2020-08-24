@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-from lib.dataCollection import DataCollection
-
+from .dataCollection import DataCollection
 
 
 class MetaData(DataCollection):
@@ -12,12 +11,13 @@ class MetaData(DataCollection):
         self.daily_log_returns = None
 
     def get_normal_returns(self):
-        for stock in self.dataFrame:
-            self.normal_returns[stock] = self.dataFrame[stock] / self.dataFrame.iloc[0][stock]
-        self.normal_returns = self.normal_returns.dropna()
+        if self.normal_returns.empty:
+            for stock in self.dataFrame:
+                self.normal_returns[stock] = self.dataFrame[stock] / \
+                    self.dataFrame.iloc[0][stock]
+            self.normal_returns = self.normal_returns.dropna()
         return self.normal_returns
 
     def get_log_returns(self):
-      self.daily_log_returns = np.log(self.dataFrame/self.dataFrame.shift(1))
-      return self.daily_log_returns
-
+        self.daily_log_returns = np.log(self.dataFrame/self.dataFrame.shift(1))
+        return self.daily_log_returns

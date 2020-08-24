@@ -9,7 +9,7 @@ class Display:
         tickers = []
         text = None
         while text != "Finish":
-            text = input('Type Finish When Done\nEnter Stock Tickers')
+            text = input('Type Finish When Done\nEnter Stock Tickers\n')
             if text != '' and text != "Finish":
                 tickers.append(text.upper())
         self.tickers = tickers
