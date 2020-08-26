@@ -17,6 +17,23 @@ class Test(TestCase):
                 patch('matplotlib.pyplot.show') as patched_show:
             patched_show.return_value = True
 
-            result = plot.prices()
+            plot.prices()
             self.assertTrue(patched_show.called)
             self.assertTrue(MockClass.dataFrame.plot.called)
+
+    def test_log_returns(self):
+        with patch('lib.metaData.MetaData') as MockClass:
+            MockClass.log_returns.return_value = True
+
+        plot = Plotting(MockClass)
+        with patch('matplotlib.pyplot.hist') as patched_hist, \
+                patch('matplotlib.pyplot.show') as patched_show, \
+        patch('matplotlib.pyplot.tight_layout') as patched_tight_layout:
+            patched_show.return_value = True
+            patched_hist.return_value = True
+            patched_tight_layout.return_value = True
+
+            plot.log_returns_hist()
+            self.assertTrue(plot.log_returns.hist.called)
+            self.assertTrue(patched_tight_layout.called)
+            self.assertTrue(patched_show.called)
