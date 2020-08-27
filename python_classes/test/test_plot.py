@@ -37,3 +37,21 @@ class Test(TestCase):
             self.assertTrue(plot.log_returns.hist.called)
             self.assertTrue(patched_tight_layout.called)
             self.assertTrue(patched_show.called)
+
+    def test_show_normal_returns(self):
+        with patch('lib.metaData.MetaData') as MockClass:
+            MockClass.normal_returns.return_value = pd.DataFrame([1,2,3], columns=["numbers"])
+            plot = Plotting(MockClass)
+        
+        plot = Plotting(MockClass)
+        with patch('matplotlib.pyplot.plot') as patched_plot, \
+            patch('matplotlib.pyplot.show') as patched_show:
+                patched_show.return_value = True
+                patched_plot.return_value = True
+
+                plot.show_normal_returns()
+                self.assertTrue(plot.normal_returns.plot.called)
+                self.assertTrue(patched_show.called)
+
+        
+
