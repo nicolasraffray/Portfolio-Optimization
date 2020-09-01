@@ -34,3 +34,6 @@ class MetaData(DataCollection):
     def average_daily_returns(self):
         average_daily_return = self.dataFrame.pct_change(1).mean()
         return average_daily_return
+
+    def correlation_matrix(self):
+        return self.dataFrame.pct_change(1).dropna().corr()
