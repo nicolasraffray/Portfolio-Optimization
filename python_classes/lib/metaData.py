@@ -20,12 +20,17 @@ class MetaData(DataCollection):
         return self.normal_returns
 
     def get_log_returns(self):
-        self.daily_log_returns = np.log(self.dataFrame/self.dataFrame.shift(1)).dropna()
+        self.daily_log_returns = np.log(
+            self.dataFrame/self.dataFrame.shift(1)).dropna()
         return self.daily_log_returns
-    
+
     def pairwise_covariance(self):
         if not self.daily_log_returns.empty:
             cov = self.daily_log_returns.cov() * 252
             self.pair_covariance = cov
         else:
             print("there are no Log Returns to perfrom calc")
+
+    def average_daily_returns(self):
+        average_daily_return = self.dataFrame.pct_change(1).mean()
+        return average_daily_return
