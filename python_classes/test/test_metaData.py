@@ -37,6 +37,12 @@ class Test(TestCase):
         result = self.meta.correlation_matrix()
         self.assertEqual(round(result.iloc[1][0], 5), -0.13289)
 
+    def test_generate_portfolio_timeseries(self):
+        self.meta.get_normal_returns()
+        self.meta.generate_portfolio_timeseries([0.33, 0.33, 0.33])
+        self.assertEqual(
+            round(self.meta.dataFrame['Total Return'].iloc[1], 4), 1.4058)
+
 
 if __name__ == "__main__":
     unittest.main()

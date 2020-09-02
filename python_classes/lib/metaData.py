@@ -37,3 +37,8 @@ class MetaData(DataCollection):
 
     def correlation_matrix(self):
         return self.dataFrame.pct_change(1).dropna().corr()
+
+    def generate_portfolio_timeseries(self, allocation):
+        pf_returns = self.normal_returns * allocation
+        self.dataFrame['Total Return'] = pf_returns.sum(axis=1)
+        return pf_returns
