@@ -15,6 +15,15 @@ class Display:
         self.tickers = tickers
         return self.tickers
 
+    def give_menu_of_options(self):
+        options = ['1', '2', '3', '4']
+        text = None
+        print("Hey hey")
+        while text not in options:
+            text = input(
+                'Choose from the following\n1) Portfolio Descriptive Statistics')
+        return text
+
 
 # d = Display()
 # d.ask_for_tickers()

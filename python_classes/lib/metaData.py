@@ -41,4 +41,3 @@ class MetaData(DataCollection):
     def generate_portfolio_timeseries(self, allocation):
         pf_returns = self.normal_returns * allocation
         self.dataFrame['Total Return'] = pf_returns.sum(axis=1)
-        return pf_returns
