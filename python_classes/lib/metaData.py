@@ -10,6 +10,20 @@ class MetaData(DataCollection):
         self.normal_returns = pd.DataFrame()
         self.daily_log_returns = None
         self.pair_covariance = None
+        self.correl_matrix = None
+
+    def descriptive_statistics(self):
+        self.get_normal_returns()
+        self.get_log_returns()
+        av_ret = self.average_daily_returns()
+
+        if len(self.dataFrame.columns) >= 2:
+            self.pairwise_covariance()
+            self.correlation_matrix()
+        else:
+            print('You Need More than Stocks for Covariance and Correlation')
+
+        return av_ret, self.pair_covariance, self.correl_matrix
 
     def get_normal_returns(self):
         if self.normal_returns.empty:
@@ -25,6 +39,7 @@ class MetaData(DataCollection):
         return self.daily_log_returns
 
     def pairwise_covariance(self):
+
         if not self.daily_log_returns.empty:
             cov = self.daily_log_returns.cov() * 252
             self.pair_covariance = cov
@@ -36,7 +51,7 @@ class MetaData(DataCollection):
         return average_daily_return
 
     def correlation_matrix(self):
-        return self.dataFrame.pct_change(1).dropna().corr()
+        self.correl_matrix = self.dataFrame.pct_change(1).dropna().corr()
 
     def generate_portfolio_timeseries(self, allocation):
         pf_returns = self.normal_returns * allocation
