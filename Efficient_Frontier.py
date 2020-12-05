@@ -175,68 +175,6 @@ def plot_against_benchmark(pf_returns, benchmark):
   pf.plot(figsize=(10,8))
   plt.show()
 
-# cons = ({'type':'eq', 'fun':check_sum})
-
-# # 0-1 bounds for each weight 
-
-# bounds = ((0,1), (0,1), (0,1), (0,1),(0,1)) # Needed to be hardcoded
-
-# init_guess = np.array([0.2,0.2,0.2,0.2,0.2]) # Needed to be hardcoded
-
-# opt_results = minimize(neg_sharpe,init_guess,method='SLSQP',bounds=bounds,constraints=cons)
-
-# print(opt_results)
-# print('----------')
-# print('Optimal Weights')
-# print(opt_results.x)
-# vals = get_ret_vol_sr(opt_results.x, log_ret)
-# print('Expected Return:')
-# print(vals[0])
-# print('Expected Volatility')
-# print(vals[1])
-# print('Sharpe Ratio')
-# print(vals[0])
-
-
-# frontier_y = np.linspace(0,0.25,10)
-# print(frontier_y)
-
-# def minimize_volatility(weights):
-#     return  get_ret_vol_sr(weights)[1] 
-
-# frontier_volatility = []
-
-# for possible_return in frontier_y:
-#     # function for return
-#     cons = ({'type':'eq','fun': check_sum},
-#             {'type':'eq','fun': lambda w: get_ret_vol_sr(w)[0] - possible_return})
-    
-#     result = minimize(minimize_volatility,init_guess,method='SLSQP',bounds=bounds,constraints=cons)
-    
-#     frontier_volatility.append(result['fun'])
-
-# plt.figure(figsize=(12,8))
-# plt.scatter(volatility_array,return_array,c=sharpe_array,cmap='plasma')
-# plt.colorbar(label='Sharpe Ratio')
-# plt.xlabel('Volatility')
-# plt.ylabel('Return')
-
-
-# log_ret = log_ret.dropna()
-# # Add frontier line
-# plt.plot(frontier_volatility,frontier_y,'g--',linewidth=3)
-
-
-# # log_ret['Cummulative'] = np.sum(log_ret,1)/np.sum(log_ret,1).iloc[0]
-
-# # spy_etf = web.DataReader('SPY', 'yahoo', start = start, end = end )
-
-# # print(spy_etf)
-# # print(log_ret['Cummulative'])
-
-# # (log_ret['Cummulative']).plot(label = 'Cummulative Return') 
-# # spy_etf['close'].plot(label = 'SPY')
-# plt.show()
 
 start = "04-01-2015"
 end = "04-02-2020"

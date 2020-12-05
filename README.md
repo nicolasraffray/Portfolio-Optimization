@@ -1,5 +1,6 @@
 # Portfolio Optimization
 
+Note To Self: Checkout yahoo_fin.stock_info for pulling fundementals data (ie `sheet = si.get_balance_sheet("aapl")`)
 Currently working on making a more intuitive CLI but see below for how to get a plot of monte carlo simulation
 
 ## How to Run
