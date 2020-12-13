@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd 
 from .metaData import MetaData
 from scipy.optimize import minimize 
+import time
+import sys
+
+
 
 
 class MonteCarlo(MetaData):
@@ -19,7 +23,13 @@ class MonteCarlo(MetaData):
     volatility_array = np.zeros(num_ports)
     sharpe_array = np.zeros(num_ports)
 
+    # setup toolbar
+    sys.stdout.write("[%s]" % (" " * toolbar_width))
+    sys.stdout.flush()
+    sys.stdout.write("\b" * (toolbar_width+1)) # return to start of line, after '['
+
     for index in range(num_ports):
+      time.sleep(0.1)
 
       # Create Random Weights
       weights = np.random.random(5)
@@ -40,7 +50,10 @@ class MonteCarlo(MetaData):
       sharpe_array[index] = return_array[index]/volatility_array[index]
 
       
-      print("Simulation is ", "%.2f" % (index/num_ports * 100),"% complete" )
+      sys.stdout.write("-")
+      sys.stdout.flush()
+    sys.stdout.write("]\n") # this ends the progress bar
+
 
     self.monte_values = { "Ra": return_array, "Va": volatility_array, "Sa": sharpe_array, "AllWeights": all_weights }
     return monte_values
