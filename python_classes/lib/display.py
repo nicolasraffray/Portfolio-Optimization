@@ -1,5 +1,6 @@
 from .metaData import MetaData
 from .plotting import Plotting
+from .monteCarlo import MonteCarlo
 
 
 class Display:
@@ -17,13 +18,19 @@ class Display:
         print("\n\n     Hey Hey\n\n")
         while text not in options:
             text = input(
-                'Choose from the following\n1) Show Tickers\n2) Get Tickers\n3) Portfolio Descriptive Statistics\n\n')
+                'Choose from the following\n \
+                1) Show Tickers\n\
+                2) Get Tickers\n\
+                3) Portfolio Descriptive Statistics\n\
+                4) Run Monte Carlo Simulation\n\n')
             if text == '1':
                 self.show_tickers()
             elif text == '2':
                 self.ask_for_tickers()
             elif text == '3':
                 self.descriptive_stat_walkthrough()
+            elif text == '4':
+                self.monte_carlo_simulation()
 
     # Option 1
     def show_tickers(self):
@@ -57,7 +64,7 @@ class Display:
     def show_descriptive_stats(self):
         self.metaData.get(self.tickers, start=self.start,
                           end=self.end)
-        av_ret, pair_cov, correl = metaData.descriptive_statistics()
+        av_ret, pair_cov, correl = self.metaData.descriptive_statistics()
         print('\n---Average Return---\n\n', av_ret)
         print('\n\n---Pairwise Covariance---\n\n', pair_cov)
         print('\n\n---Correlation Matrix---\n\n', correl)
@@ -68,3 +75,8 @@ class Display:
         text = None
         while text not in options:
             print('Not Working Yet')
+
+    # 4 - Monte Carlo Simulation
+    def monte_carlo_simulation(self):
+        monte = MonteCarlo(self.metaData)
+        monte.run_simulation()
