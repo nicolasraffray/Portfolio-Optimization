@@ -5,18 +5,21 @@ import pandas_datareader as web
 
 class DataCollection():
 
+    dataFrame = pd.DataFrame()
+
     def __init__(self):
         self.dataFrame = pd.DataFrame()
 
-    def get(self, ticker, start, end):
+    @classmethod
+    def get(cls, ticker, start, end):
         try:
             stock = web.DataReader(ticker, start=start,
                                    end=end, data_source='yahoo')
-            if self.dataFrame.empty:
-                self.dataFrame[ticker] = stock['Adj Close']
+            if cls.dataFrame.empty:
+                cls.dataFrame[ticker] = stock['Adj Close']
             else:
-                self.dataFrame = pd.concat(
-                    [self.dataFrame, stock['Adj Close']], axis=1)
-                self.dataFrame.columns.values[-1] = ticker
+                cls.dataFrame = pd.concat(
+                    [cls.dataFrame, stock['Adj Close']], axis=1)
+                cls.dataFrame.columns.values[-1] = ticker
         except:
             return "Stock Not Found"

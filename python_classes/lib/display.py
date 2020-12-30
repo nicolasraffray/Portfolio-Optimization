@@ -80,4 +80,4 @@ class Display:
     def monte_carlo_simulation(self):
         print(self.metaData)
         monte = MonteCarlo(self.metaData)
-        monte.run_simulation()
+        monte.run_simulation(1000000)
