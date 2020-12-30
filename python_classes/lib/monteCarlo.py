@@ -85,11 +85,8 @@ class MonteCarlo():
 
   def _instantiate_metaData(self):
     if self.metaData == None:
-      print('2')
       self.metaData = MetaData()
       self.metaData.descriptive_statistics()
-      print('---- This is the mock --- ')
-      print(self.metaData.daily_log_returns)
       self.log_returns = self.metaData.daily_log_returns
     else:
       self.log_returns = self.metaData.daily_log_returns
