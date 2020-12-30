@@ -4,7 +4,7 @@ import random
 import pandas as pd 
 import numpy as np
 from unittest import TestCase
-from unittest.mock import Mock
+from unittest import mock
 from lib.monteCarlo import MonteCarlo
 
 
@@ -17,7 +17,7 @@ class Test(TestCase):
                                  [100, 101, 98, 102, 110]
                         )), columns=['s1', 's2', 's3'])
 
-    metaData = Mock()
+    metaData = mock.Mock()
     metaData.daily_log_returns = np.log(data/data.shift(1)).dropna()
     monte = MonteCarlo(metaData)
     result = monte.run_simulation(10)

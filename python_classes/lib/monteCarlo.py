@@ -1,10 +1,10 @@
+import time
+import sys
+import random
 import numpy as np 
 import pandas as pd 
 from .metaData import MetaData
 from scipy.optimize import minimize 
-import time
-import sys
-import random
 
 class MonteCarlo():
 
@@ -84,9 +84,12 @@ class MonteCarlo():
     return self.optimal_SR_values, self.monte_values['AllWeights'][optimal_sharpe]
 
   def _instantiate_metaData(self):
-    if type(self.metaData) is None:
-      metaData = MetaData()
-      self.metaData = metaData.descriptive_statistics()
+    if self.metaData == None:
+      print('2')
+      self.metaData = MetaData()
+      self.metaData.descriptive_statistics()
+      print('---- This is the mock --- ')
+      print(self.metaData.daily_log_returns)
       self.log_returns = self.metaData.daily_log_returns
     else:
       self.log_returns = self.metaData.daily_log_returns
