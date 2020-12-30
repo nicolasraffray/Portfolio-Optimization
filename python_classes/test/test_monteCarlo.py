@@ -25,6 +25,7 @@ class Test(TestCase):
     assert round(monte.monte_values['Ra'][0], 2) == 63.64
     assert round(monte.monte_values['Va'][0], 2) == 5.64
     assert round(monte.monte_values['Sa'][0], 2) == 11.29
+    print(monte.monte_values['AllWeights'])
     assert len(monte.monte_values['AllWeights']) == 10
     np.testing.assert_allclose(
       monte.optimal_weights,

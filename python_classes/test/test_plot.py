@@ -1,6 +1,7 @@
 import unittest
 import pytest
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from unittest.mock import patch, Mock
 from unittest import TestCase
@@ -53,6 +54,47 @@ class Test(TestCase):
                 plot.show_normal_returns()
                 self.assertTrue(plot.normal_returns.plot.called)
                 self.assertTrue(patched_show.called)
+
+    def test_plot_monte_carl(self):
+        plot = Plotting(Mock())
+        mockedMonte = Mock()
+        monte_values = {
+            'Ra': np.array([63.64]),
+            'Va': np.array([5.64]),
+            'Sa': np.array([11.29]),
+            'AllWeights': np.array(
+                [
+                    [3.66625362e-01, 6.33274085e-01, 1.00552749e-04],
+                    [5.58399452e-01, 2.71053854e-01, 1.70546694e-01],
+                    [2.00584251e-01, 3.72135515e-01, 4.27280234e-01]
+                ]
+            )
+        }
+
+        optimal_SR_values = {
+            'MR': 18.171065961050374, 
+            'MV': 0.8648040545884282, 
+            'OS': 9
+        }
+
+        with patch('matplotlib.pyplot.scatter') as patched_scatter, \
+            patch('matplotlib.pyplot.show') as patched_show, \
+                patch('matplotlib.pyplot.colorbar') as patched_colorbar:
+                    patched_show.return_value = True 
+                    patched_scatter.return_value = True
+                    patched_colorbar.return_value = True
+                    
+
+                    plot.plot_monte_carlo(monte_values, optimal_SR_values)
+
+                    self.assertTrue(patched_colorbar.called)
+                    self.assertTrue(patched_show.called)
+                    patched_scatter.asset_call_with(np.array([5.64]))
+                    patched_scatter.asset_call_with(np.array([63.64]))
+                    patched_scatter.asset_call_with(18.171065961050374)
+                    patched_scatter.asset_call_with(0.8648040545884282)
+
+
 
         
 

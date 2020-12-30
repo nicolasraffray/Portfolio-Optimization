@@ -2,7 +2,6 @@ from .metaData import MetaData
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 class Plotting(MetaData):
 
     def __init__(self, MetaDataClass=None):
@@ -20,8 +19,25 @@ class Plotting(MetaData):
         self.normal_returns.plot(figsize=(12,8))
         plt.show()
 
-
     def log_returns_hist(self):
         self.log_returns.hist(bins=100, figsize=(14, 7))
         plt.tight_layout()
         plt.show()
+    
+    def plot_monte_carlo(self, monte_values, optimal_SR_values):
+        print('--- See Here')
+        print(monte_values)
+        returns = monte_values["Ra"]
+        vol = monte_values["Va"]
+        sr = monte_values["Sa"]
+        
+        plt.figure(figsize = (16,6))
+        plt.scatter(vol, returns, c = sr, cmap = 'winter')
+        plt.colorbar(label = 'Sharpe Ratio')
+        plt.xlabel('Volatility')
+        plt.ylabel('Expected Return')
+
+
+        plt.scatter(optimal_SR_values["MV"],optimal_SR_values["MR"], c='r', edgecolor = 'black')
+        plt.show()
+
