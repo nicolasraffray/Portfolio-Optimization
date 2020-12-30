@@ -2,7 +2,6 @@ import unittest
 import pytest
 import pandas
 import pandas_datareader
-from pretend import stub
 from unittest import TestCase
 from unittest.mock import patch, Mock
 from lib.dataCollection import DataCollection
