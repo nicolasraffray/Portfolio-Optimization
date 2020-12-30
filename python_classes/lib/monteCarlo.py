@@ -14,8 +14,6 @@ class MonteCarlo():
       metaData.descriptive_statistics()
     self.metaData = metaData
 
-  
-
   def run_simulation(self):
     self.simulation(self.metaData.daily_log_returns, 10000)
     self.get_optimal_weights()

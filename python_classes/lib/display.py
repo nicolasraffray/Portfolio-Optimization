@@ -70,7 +70,7 @@ class Display:
         print('\n\n---Correlation Matrix---\n\n', correl)
 
     # 3b - Plotting
-    def plotting_walkthrough():
+    def plotting_walkthrough(self):
         options = ['1', '2']
         text = None
         while text not in options:
@@ -78,5 +78,6 @@ class Display:
 
     # 4 - Monte Carlo Simulation
     def monte_carlo_simulation(self):
+        print(self.metaData)
         monte = MonteCarlo(self.metaData)
         monte.run_simulation()

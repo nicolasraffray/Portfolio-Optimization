@@ -1,4 +1,5 @@
 import unittest
+import pytest
 import pandas as pd
 from unittest.mock import patch, Mock
 from unittest import TestCase
@@ -32,8 +33,9 @@ class Test(TestCase):
         self.assertEqual(round(result.iloc[0], 5), 0.41528)
 
     def test_correlation_matrix(self):
-        dataFrame = pd.DataFrame(list(zip([4, 3, 9, 10, 8], [10, 25, 36, 30, 33], [
+        self.meta.dataFrame = pd.DataFrame(list(zip([4, 3, 9, 10, 8], [10, 25, 36, 30, 33], [
                                  100, 101, 98, 102, 110])), columns=['s1', 's2', 's3'])
+        print(self.meta)
         result = self.meta.correlation_matrix()
         self.assertEqual(round(result.iloc[1][0], 5), -0.13289)
 

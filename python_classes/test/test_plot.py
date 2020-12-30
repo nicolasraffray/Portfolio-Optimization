@@ -1,10 +1,10 @@
 import unittest
+import pytest
 import pandas as pd
 import matplotlib.pyplot as plt
 from unittest.mock import patch, Mock
 from unittest import TestCase
 from lib.plotting import Plotting
-
 
 class Test(TestCase):
     def test_plot_prices(self):
@@ -39,6 +39,7 @@ class Test(TestCase):
             self.assertTrue(patched_show.called)
 
     def test_show_normal_returns(self):
+        metaData = Mock()        
         with patch('lib.metaData.MetaData') as MockClass:
             MockClass.normal_returns.return_value = pd.DataFrame([1,2,3], columns=["numbers"])
             plot = Plotting(MockClass)

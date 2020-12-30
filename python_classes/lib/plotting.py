@@ -7,10 +7,10 @@ class Plotting(MetaData):
 
     def __init__(self, MetaDataClass=None):
         super().__init__()
-        # if MetaDataClass != None:
-        #     self.dataFrame = MetaDataClass.dataFrame
-        #     self.log_returns = MetaDataClass.log_returns
-        #     self.normal_returns = MetaDataClass.normal_returns
+        if MetaDataClass != None:
+            self.dataFrame = MetaDataClass.dataFrame
+            self.log_returns = MetaDataClass.daily_log_returns
+            self.normal_returns = MetaDataClass.normal_returns
 
     def prices(self):
         self.dataFrame.plot(figsize=(12, 8))
