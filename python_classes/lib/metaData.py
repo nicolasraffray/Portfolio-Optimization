@@ -3,15 +3,14 @@ import pandas as pd
 import numpy as np
 from .dataCollection import DataCollection
 
+class MetaData():
 
-class MetaData(DataCollection):
-
-    def __init__(self):
-        super().__init__()
+    def __init__(self, dataFrame=None):
         self.normal_returns = pd.DataFrame()
         self.daily_log_returns = None
         self.pair_covariance = None
         self.correl_matrix = None
+        self._initialize_dataFrame(dataFrame)
 
     def descriptive_statistics(self):
         self.get_normal_returns()
@@ -58,5 +57,11 @@ class MetaData(DataCollection):
     def generate_portfolio_timeseries(self, allocation):
         pf_returns = self.normal_returns * allocation
         self.dataFrame['Total Return'] = pf_returns.sum(axis=1)
+
+    def _initialize_dataFrame(self, dataFrame):
+        if dataFrame == None or dataFrame.empty:
+            self.dataFrame = DataCollection.dataFrame
+        else:
+            self.dataFrame = dataFrame
     
 
