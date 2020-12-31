@@ -58,6 +58,12 @@ class MetaData():
         pf_returns = self.normal_returns * allocation
         self.dataFrame['Total Return'] = pf_returns.sum(axis=1)
 
+    def re_initialize_data(self, data=None):
+        if data == None:
+            self.dataFrame = DataCollection.dataFrame
+        else:
+            self.dataFrame = data
+
     def _initialize_dataFrame(self, dataFrame):
         if dataFrame == None or dataFrame.empty:
             self.dataFrame = DataCollection.dataFrame
