@@ -2,11 +2,12 @@ from .metaData import MetaData
 from .plotting import Plotting
 from .monteCarlo import MonteCarlo
 from .dataCollection import DataCollection
+from .readCSV import ReadCSV
 
 
 class Display:
     def __init__(self):
-        self.tickers = ['FB', 'GOOG', 'AMZN', 'INRG.MI']
+        self.tickers = []
         self.start = '01-01-2018'
         self.end = '01-01-2020'
         self.metaData = MetaData()
@@ -17,30 +18,29 @@ class Display:
         options = ['1', '2', '3', '4']
         text = None
         print("\n\n     Hey Hey\n\n")
+        text = input('Load csv Tickers or Add tickers [load/add]: (Default = load)')
+        if text == '' or text == 'load':
+            try:
+                self.read_csv()
+            except:
+                print('could not find ../tickers/tickers.csv')
+        else:
+            self.ask_for_tickers()
+        DataCollection.get(
+                    self.tickers, 
+                    start=self.start,
+                    end=self.end
+        )
         while text not in options:
-            text = input(
-                'Choose from the following\n\
+            text = input('Choose from the following\n\
                 1) Show Tickers\n\
-                2) Get Tickers\n\
-                3) Portfolio Descriptive Statistics\n\
-                4) Run Monte Carlo Simulation\n\n')
+                2) Portfolio Descriptive Statistics\n\
+                3) Run Monte Carlo Simulation\n\n')
             if text == '1':
                 self.show_tickers()
             elif text == '2':
-                self.ask_for_tickers()
-            elif text == '3':
-                DataCollection.get(
-                    self.tickers, 
-                    start=self.start,
-                    end=self.end
-                )
                 self.descriptive_stat_walkthrough()
-            elif text == '4':
-                DataCollection.get(
-                    self.tickers, 
-                    start=self.start,
-                    end=self.end
-                )
+            elif text == '3':
                 self.monte_carlo_simulation()
 
     # Option 1
@@ -49,14 +49,19 @@ class Display:
 
     # Option 2
     def ask_for_tickers(self):
-        tickers = []
-        text = None
-        while text != "Finish":
-            text = input('\n\nType Finish When Done\nEnter Stock Tickers\n')
-            if text != '' and text != "Finish":
-                tickers.append(text.upper())
-        self.tickers = tickers
+        text = None        
+        while text != "":
+            text = input('\n\nEnter A Ticker or Hit Enter When Done\n')
+            if text != '' and text != "":
+                self.tickers.append(text.upper())
+        print('Currently your tickers are: ')
+        print(self.tickers)
         return self.tickers
+
+    def read_csv(self):
+        text = input('Would you like to read tickers.csv from the csv folder[yes/no]?: (Default: yes) ')
+        if text == 'yes' or text == '':
+            self.tickers = ReadCSV.get_tickers()
 
     # Option 3
     def descriptive_stat_walkthrough(self):
