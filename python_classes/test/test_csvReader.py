@@ -7,8 +7,6 @@ from lib.readCSV import ReadCSV
 class Test(unittest.TestCase):
 
   def test_readCSV(self):
-    open_name = '%s.open' % __name__
-
     with mock.patch("builtins.open", create=True) as mock_open,\
           mock.patch('csv.reader') as patched_csv:
             patched_csv.return_value = ['FB']
