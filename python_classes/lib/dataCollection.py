@@ -18,5 +18,7 @@ class DataCollection():
                 cls.dataFrame = pd.concat(
                     [cls.dataFrame, stock['Adj Close']], axis=1)
                 cls.dataFrame.columns.values[-1] = ticker
+            print('Data Retrieval: Successful.')
         except:
-            return "Stock Not Found"
+            print('A failure occured for retrieving data')
+
