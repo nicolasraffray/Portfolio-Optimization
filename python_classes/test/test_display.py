@@ -18,7 +18,7 @@ class Test(TestCase):
     def test_give_menu_of_options(self, mock_inputs, mock_print):
         result = self.display.give_menu_of_options()
         print(mock_print)
-        mock_print.assert_called_with('Choose from the following\n \
+        mock_print.assert_called_with('Choose from the following\n\
                 1) Show Tickers\n\
                 2) Get Tickers\n\
                 3) Portfolio Descriptive Statistics\n\
