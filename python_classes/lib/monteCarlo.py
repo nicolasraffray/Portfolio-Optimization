@@ -17,7 +17,8 @@ class MonteCarlo():
 
   def run_simulation(self, num_ports):
     self._simulation(self.log_returns, num_ports)
-    self.get_optimal_weights()
+    _, best_weights = self.get_optimal_weights()
+    return best_weights
 
   def _simulation(self, stocks, num_ports):
     frame_length = len(stocks.columns)
@@ -68,7 +69,7 @@ class MonteCarlo():
       return 
       
     print('Shapre Ratio:',self.monte_values["Sa"].max(),'\n')
-    print('Max SR Location:',self.monte_values["Sa"].argmax())
+    # print('Max SR Location:',self.monte_values["Sa"].argmax())
     optimal_sharpe = self.monte_values["Sa"].argmax()
 
     allw = self.monte_values["AllWeights"]

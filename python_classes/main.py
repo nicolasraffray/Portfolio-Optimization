@@ -6,6 +6,8 @@ from lib.monteCarlo import MonteCarlo
 
 def main():
     display = Display()
+    print('\n\n========= Tickers =========\n\n')
+    display.initial_data_request()
     while True:
         display.give_menu_of_options()
 

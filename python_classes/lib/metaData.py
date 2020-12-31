@@ -26,11 +26,10 @@ class MetaData():
         return av_ret, self.pair_covariance, self.correl_matrix
 
     def get_normal_returns(self):
-        if self.normal_returns.empty:
-            for stock in self.dataFrame:
-                self.normal_returns[stock] = self.dataFrame[stock] / \
-                    self.dataFrame.iloc[0][stock]
-            self.normal_returns = self.normal_returns.dropna()
+        for stock in self.dataFrame:
+            self.normal_returns[stock] = self.dataFrame[stock] / \
+                self.dataFrame.iloc[0][stock]
+        self.normal_returns = self.normal_returns.dropna()
         return self.normal_returns
 
     def get_log_returns(self):

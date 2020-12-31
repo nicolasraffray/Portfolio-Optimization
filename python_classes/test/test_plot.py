@@ -3,6 +3,7 @@ import pytest
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from unittest import mock
 from unittest.mock import patch, Mock
 from unittest import TestCase
 from lib.plotting import Plotting
@@ -35,14 +36,14 @@ class Test(TestCase):
             patched_tight_layout.return_value = True
 
             plot.log_returns_hist()
-            self.assertTrue(plot.log_returns.hist.called)
+            self.assertTrue(plot.daily_log_returns.hist.called)
             self.assertTrue(patched_tight_layout.called)
             self.assertTrue(patched_show.called)
 
     def test_show_normal_returns(self):
         metaData = Mock()        
         with patch('lib.metaData.MetaData') as MockClass:
-            MockClass.normal_returns.return_value = pd.DataFrame([1,2,3], columns=["numbers"])
+            MockClass.return_value.dataFrame = pd.DataFrame([1,2,3,4,5], columns=["numbers"])
             plot = Plotting(MockClass)
         
         plot = Plotting(MockClass)
@@ -51,8 +52,8 @@ class Test(TestCase):
                 patched_show.return_value = True
                 patched_plot.return_value = True
 
-                plot.show_normal_returns()
-                self.assertTrue(plot.normal_returns.plot.called)
+                data = pd.DataFrame([1,2,3,4,5], columns=["numbers"])
+                plot.show_normal_returns(data)
                 self.assertTrue(patched_show.called)
 
     def test_plot_monte_carl(self):

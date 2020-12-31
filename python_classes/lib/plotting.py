@@ -8,25 +8,25 @@ class Plotting(MetaData):
         super().__init__()
         if MetaDataClass != None:
             self.dataFrame = MetaDataClass.dataFrame
-            self.log_returns = MetaDataClass.daily_log_returns
+            self.daily_log_returns = MetaDataClass.daily_log_returns
             self.normal_returns = MetaDataClass.normal_returns
 
     def prices(self):
         self.dataFrame.plot(figsize=(12, 8))
         plt.show()
 
-    def show_normal_returns(self):
-        self.normal_returns.plot(figsize=(12,8))
+    def show_normal_returns(self, normal_returns):
+        normal_returns.plot(figsize=(12,8))
         plt.show()
 
     def log_returns_hist(self):
-        self.log_returns.hist(bins=100, figsize=(14, 7))
+        if self.daily_log_returns == None:
+            self.descriptive_statistics()
+        self.daily_log_returns.hist(bins=100, figsize=(14, 7))
         plt.tight_layout()
         plt.show()
     
     def plot_monte_carlo(self, monte_values, optimal_SR_values):
-        print('--- See Here')
-        print(monte_values)
         returns = monte_values["Ra"]
         vol = monte_values["Va"]
         sr = monte_values["Sa"]

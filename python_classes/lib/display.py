@@ -8,16 +8,13 @@ from .readCSV import ReadCSV
 class Display:
     def __init__(self):
         self.tickers = []
-        self.start = '01-01-2018'
+        self.start = '01-01-2017'
         self.end = '01-01-2020'
-        self.metaData = MetaData()
+        self.metaData = None
         self.plotting = Plotting(self.metaData)
         self.allocation = None
 
-    def give_menu_of_options(self):
-        options = ['1', '2', '3', '4']
-        text = None
-        print("\n\n     Hey Hey\n\n")
+    def initial_data_request(self):
         text = input('Load csv Tickers or Add tickers [load/add]: (Default = load)')
         if text == '' or text == 'load':
             try:
@@ -26,13 +23,23 @@ class Display:
                 print('could not find ../tickers/tickers.csv')
         else:
             self.ask_for_tickers()
+        print('Your tickers are: ', self.tickers)
+        print('Retrieving Data...')
         DataCollection.get(
                     self.tickers, 
                     start=self.start,
                     end=self.end
         )
+        self.metaData = MetaData()
+
+    def give_menu_of_options(self):
+        options = ['1', '2', '3', '4']
+        text = None
+        print("\n\n     Hey Hey\n\n")
         while text not in options:
-            text = input('Choose from the following\n\
+            text = input(
+                '\n\
+                Choose from the following\n\
                 1) Show Tickers\n\
                 2) Portfolio Descriptive Statistics\n\
                 3) Run Monte Carlo Simulation\n\n')
@@ -72,9 +79,24 @@ class Display:
             if text == '1':
                 self.show_descriptive_stats()
             elif text == '2':
-                print('To be made')
+                self.show_plotting_menu()
             else:
                 break
+    
+    def show_plotting_menu(self):
+        text = None
+        self.metaData.descriptive_statistics()
+        plot = Plotting(self.metaData)
+        while text != '':
+            text = input('1) Normal Returns\n2) Distribution of Returns\n3) Show Raw Time Series Data')
+            if text == '1':
+                print(self.metaData.normal_returns)
+                plot.show_normal_returns(self.metaData.normal_returns)
+            elif text == '2':
+                plot.log_returns_hist()
+            elif text == '3':
+                plot.prices()
+            
 
     # 3a - Descriptive Statistics
     def show_descriptive_stats(self):
@@ -86,7 +108,7 @@ class Display:
 
     # 3b - Plotting
     def plotting_walkthrough(self):
-        self.plotting = Plotting()
+        self.plotting = Plotting(self.metaData)
         options = ['1', '2']
         text = None
         while text not in options:
@@ -107,4 +129,13 @@ class Display:
                 print('Please Enter Numbers Only')
             
         print('The simulation is now running.\n')
-        monte.run_simulation(num_ports)
+        best_weights = monte.run_simulation(num_ports)
+        print('Optimal Weights')
+        for i in range(0,len(self.tickers)):
+            print(self.tickers[i],': ', round(best_weights[i]*100,2),'%')
+        self.monte_plotting(monte)
+    
+    def monte_plotting(self, monte):
+        print('To resume close graph')
+        plotting = Plotting(self.metaData)
+        plotting.plot_monte_carlo(monte.monte_values, monte.optimal_SR_values)
