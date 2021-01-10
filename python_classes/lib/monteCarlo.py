@@ -4,7 +4,7 @@ import random
 import numpy as np 
 import pandas as pd 
 from .metaData import MetaData
-from scipy.optimize import minimize 
+from scipy.optimize import minimize
 
 class MonteCarlo():
 
@@ -83,6 +83,41 @@ class MonteCarlo():
     self.optimal_SR_values = {"OS": optimal_sharpe, "MV": max_sr_vol, "MR": max_sr_ret}
     self.optimal_weights = self.monte_values['AllWeights'][optimal_sharpe]
     return self.optimal_SR_values, self.monte_values['AllWeights'][optimal_sharpe]
+  
+  def _generate_efficient_frontier(self, weights):
+    frontier_y = np.linspace(0,0.3,100)
+    frontier_volatility = []
+    init_guess = [0.25,0.25,0.25,0.25] # assuming for 4 stocks allocate evenly between them. 
+    # 0-1 bounds for each weight
+    bounds = ((0, 1), (0, 1), (0, 1), (0, 1))
+
+    for possible_return in frontier_y:
+        # function for return
+        cons = ({'type':'eq','fun': self._check_sum},
+                {'type':'eq','fun': lambda w: self._get_ret_vol_sr(w)[0] - possible_return})
+        
+        result = minimize(self._minimize_volatility,init_guess,method='SLSQP',bounds=bounds,constraints=cons)
+        
+        frontier_volatility.append(result['fun'])
+
+  def _get_neg_sharpe(self, weights):
+    return  self._get_ret_vol_sr(weights)[2] * -1
+  
+  def _check_sum(self, weights):
+    return np.sum(weights) - 1
+  
+  def _get_ret_vol_sr(self, weights):
+      """
+      Takes in weights, returns array or return,volatility, sharpe ratio
+      """
+      weights = np.array(weights)
+      ret = np.sum(self.log_returns.mean() * weights) * 252
+      vol = np.sqrt(np.dot(weights.T, np.dot(self.log_returns.cov() * 252, weights)))
+      sr = ret/vol
+      return np.array([ret,vol,sr])
+  
+  def _minimize_volatility(self, weights):
+    return  self._get_ret_vol_sr(weights)[1] 
 
   def _instantiate_metaData(self):
     if self.metaData == None:

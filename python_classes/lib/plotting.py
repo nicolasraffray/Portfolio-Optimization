@@ -20,9 +20,9 @@ class Plotting(MetaData):
         plt.show()
 
     def log_returns_hist(self):
-        if self.daily_log_returns == None:
+        if self.daily_log_returns.empty:
             self.descriptive_statistics()
-        self.daily_log_returns.hist(bins=100, figsize=(14, 7))
+        n, bins, _ = self.daily_log_returns.hist(bins=100, figsize=(14, 7))
         plt.tight_layout()
         plt.show()
     
