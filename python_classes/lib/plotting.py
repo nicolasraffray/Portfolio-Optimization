@@ -2,6 +2,7 @@ from .metaData import MetaData
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# consider making methods static and agnostic to data
 class Plotting(MetaData):
 
     def __init__(self, MetaDataClass=None):
